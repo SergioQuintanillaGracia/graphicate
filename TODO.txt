@@ -1,3 +1,3 @@
 - Add an export and import option that shows text to copy: a list that contains the information of the graph. Copying it, clicking import, and pasting it there, should generate the same graph.
 
-- Option to show names inside the vertices (if they are only 2 chars long) and outside them.
+- Option to show vertex degree inside the vertex, enabled by default.
