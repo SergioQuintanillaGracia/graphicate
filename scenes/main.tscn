@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=13 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
 [ext_resource type="Texture2D" uid="uid://bb64in6b5xfim" path="res://icons/menu.png" id="1_vr1x3"]
 [ext_resource type="Texture2D" uid="uid://cne6ybr2gtdny" path="res://icons/vertex_icon.png" id="2_iww1y"]
+[ext_resource type="Texture2D" uid="uid://bvgn3kn7lb2m2" path="res://icons/edit_icon.png" id="4_lvvfh"]
+[ext_resource type="Texture2D" uid="uid://lktc6l41jksx" path="res://icons/edge_icon.png" id="5_ri6rr"]
+[ext_resource type="Texture2D" uid="uid://co313xvcx5xby" path="res://icons/delete_icon.png" id="6_g2uue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f24n"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
@@ -54,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_rgeyl")
 
 [node name="bg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -128,9 +133,9 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="VertexIcon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
 position = Vector2(60, 47)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("2_iww1y")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
@@ -161,10 +166,10 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="EdgeIcon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
 position = Vector2(60, 47)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_iww1y")
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_ri6rr")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
 layout_mode = 1
@@ -180,6 +185,72 @@ text = "Draw edges"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
+[node name="EditButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
+custom_minimum_size = Vector2(120, 96)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
+position = Vector2(60, 47)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_lvvfh")
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 119.0
+offset_top = -20.0
+offset_right = 306.0
+offset_bottom = 20.0
+grow_vertical = 2
+text = "Edit weights"
+label_settings = SubResource("LabelSettings_l51oh")
+vertical_alignment = 1
+
+[node name="DeleteButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
+custom_minimum_size = Vector2(120, 96)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+position = Vector2(60, 47)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_g2uue")
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 119.0
+offset_top = -20.0
+offset_right = 306.0
+offset_bottom = 20.0
+grow_vertical = 2
+text = "Delete items"
+label_settings = SubResource("LabelSettings_l51oh")
+vertical_alignment = 1
+
 [node name="BottomContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -190,3 +261,7 @@ libraries = {
 }
 
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton" to="." method="_on_draw_vertex_button_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton" to="." method="_on_draw_edge_button_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton" to="." method="_on_edit_button_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton" to="." method="_on_delete_button_gui_input"]
