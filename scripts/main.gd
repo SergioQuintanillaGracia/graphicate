@@ -43,3 +43,20 @@ func _on_delete_button_gui_input(event):
 		if event.get_button_index() == 1 && event.is_pressed():
 			current_mode = MODE_DELETE
 			print("Changed mode to " + str(current_mode))
+
+
+func _on_image_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			print("Image button pressed")
+
+func _on_settings_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			print("Settings button pressed")
+
+
+func _on_panel_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			print("Mouse click pressed on drawing space")
