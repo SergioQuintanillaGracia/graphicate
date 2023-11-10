@@ -260,6 +260,14 @@ libraries = {
 "": SubResource("AnimationLibrary_metwd")
 }
 
+[node name="Vertices" type="Node2D" parent="."]
+
+[node name="Edges" type="Node2D" parent="."]
+
+[node name="VertexNames" type="Node2D" parent="."]
+
+[node name="EdgeNames" type="Node2D" parent="."]
+
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton" to="." method="_on_draw_vertex_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton" to="." method="_on_draw_edge_button_gui_input"]
