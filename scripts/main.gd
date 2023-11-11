@@ -36,7 +36,7 @@ func _ready():
 
 
 func _process(_delta):
-	print(get_graph_string())
+	# print(get_graph_string())
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		if current_line != null:
@@ -70,6 +70,25 @@ func get_graph_string():
 	string += "}"
 	
 	return string
+
+
+func are_adjacent(v1: Node2D, v2: Node2D):
+	# v1 and v2 will be adjacent if a line starts in v1, and the same line ends
+	# in v2, or the opposite.
+	
+	for line_list_1 in graph[v1]:
+		var line_1: Node2D = line_list_1[0]
+		var line_1_val: int = line_list_1[1]
+		
+		for line_list_2 in graph[v2]:
+			var line_2: Node2D = line_list_2[0]
+			var line_2_val: int = line_list_2[1]
+			
+			if line_1 == line_2:
+				if (line_1_val == 0 and line_2_val == 1) or (line_1_val == 1 and line_2_val == 0):
+					return true
+	
+	return false
 
 
 func update_selected_button():
@@ -189,11 +208,16 @@ func _on_panel_gui_input(event):
 					
 					current_line_vertex_end = mouse_over_vertex
 					
-					# Add the line data to the graph.
-					graph[current_line_vertex_end].append([current_line, 1])
+					# If the nodes are already adjacent, cancel the line.
+					if are_adjacent(current_line_vertex, current_line_vertex_end):
+						cancel_line()
 					
-					update_degree(current_line_vertex_end)
-					
+					else:
+						# Add the line data to the graph.
+						graph[current_line_vertex_end].append([current_line, 1])
+						
+						update_degree(current_line_vertex_end)
+						
 					current_line = null
 					current_line_vertex = null
 					current_line_vertex_end = null
