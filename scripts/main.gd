@@ -1,7 +1,7 @@
 extends Control
 
 
-# Graph format: {vertexobj:[{lineobj1:0}, {lineobj2:1}]}
+# Graph format: {vertexobj:[[lineobj1, 0], [lineobj2, 1]}
 # Where the value 0 means the point 0 of the line (the origin) is in that node,
 # and the value 1 means the point 1 of the line (the end) is in that node.
 # It is necessary to save this data so, when moving the nodes around, we know
@@ -24,6 +24,7 @@ var current_line: Line2D
 # Needed to remove the line data from the graph
 # in case esc is pressed while creating the edge
 var current_line_vertex: Node2D
+var current_line_vertex_end: Node2D
 
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
 
@@ -35,13 +36,40 @@ func _ready():
 
 
 func _process(_delta):
-	print(graph)
+	print(get_graph_string())
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		if current_line != null:
-			# We need to delete the line data from the graph, and free the line object.
-			graph[current_line_vertex].erase({current_line:0})
-			current_line.queue_free()
+			# We need to delete the line data from the graph.
+			cancel_line()
+
+
+func cancel_line():
+	graph[current_line_vertex].erase([current_line, 0])
+	current_line.queue_free()
+	update_degree(current_line_vertex)
+	
+	if current_line_vertex_end != null:
+		update_degree(current_line_vertex_end)
+
+
+func get_graph_string():
+	var string: String = "{"
+	
+	for i in graph:
+		string += i.name
+		string += ":["
+		
+		for j in graph[i]:
+			string += "["
+			string += "Line," + str(j[1])
+			string += "],"
+		
+		string += "],"
+	
+	string += "}"
+	
+	return string
 
 
 func update_selected_button():
@@ -50,10 +78,10 @@ func update_selected_button():
 		
 		if current_mode != previous_mode && "ButtonIdentifier" in node.get_meta_list():
 			if node.get_meta("ButtonIdentifier") == current_mode:
-				node.get_node("Icon").position[0] += 20
+				node.get_node("ColorRect").color = "3d3d42"
 			
 			elif node.get_meta("ButtonIdentifier") == previous_mode:
-				node.get_node("Icon").position[0] -= 20
+				node.get_node("ColorRect").color = "2e2e2e"
 
 
 func _physics_process(_delta):
@@ -151,17 +179,28 @@ func _on_panel_gui_input(event):
 					current_line_vertex = mouse_over_vertex
 					
 					# Add the line data to the graph.
-					graph[current_line_vertex].append({current_line:0})
+					graph[current_line_vertex].append([current_line, 0])
+					
+					update_degree(current_line_vertex)
 				
 				else:
 					# The line should end at this vertex.
 					current_line.set_point_position(1, mouse_over_vertex.position)
 					
+					current_line_vertex_end = mouse_over_vertex
+					
 					# Add the line data to the graph.
-					graph[mouse_over_vertex].append({current_line:1})
+					graph[current_line_vertex_end].append([current_line, 1])
+					
+					update_degree(current_line_vertex_end)
 					
 					current_line = null
 					current_line_vertex = null
+					current_line_vertex_end = null
+
+
+func update_degree(vertex: Node2D):
+	vertex.set_degree(graph[vertex].size())
 
 
 func _on_mouse_follower_area_entered(area: Area2D):
