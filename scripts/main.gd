@@ -1,6 +1,14 @@
 extends Control
 
 
+# Graph format: {vertexobj:[vertexname, [{lineobj1:0}, {lineobj2:1}]}
+# Where the value 0 means the point 0 of the line (the origin) is in that node,
+# and the value 1 means the point 1 of the line (the end) is in that node.
+# It is necessary to save this data so, when moving the nodes around, we know
+# which points of the Line2Ds to change.
+var graph: Dictionary = {}
+
+
 const MODE_DRAW_VERTICES: int = 0
 const MODE_DRAW_EDGES: int = 1
 const MODE_EDIT: int = 2
@@ -9,7 +17,9 @@ const MODE_DELETE: int = 3
 var current_mode: int
 var previous_mode: int
 
-var is_mouse_over_vertex: bool = false
+var mouse_over_vertex: Node2D = null
+
+var current_line: Line2D
 
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
 
@@ -38,6 +48,9 @@ func update_selected_button():
 
 func _physics_process(_delta):
 	$MouseFollower.position = get_global_mouse_position()
+	
+	if current_line != null:
+		current_line.set_point_position(1, get_global_mouse_position())
 
 
 func draw_vertex(position: Vector2):
@@ -102,16 +115,28 @@ func _on_panel_gui_input(event):
 		if event.get_button_index() == 1 && event.is_pressed():
 			print("Mouse click pressed on drawing space")
 			
-			if current_mode == MODE_DRAW_VERTICES && !is_mouse_over_vertex:
+			if current_mode == MODE_DRAW_VERTICES && mouse_over_vertex == null:
 				draw_vertex(get_global_mouse_position())
+			
+			if mouse_over_vertex != null:
+				if current_line == null:
+					current_line = Line2D.new()
+					$Instances/Edges.add_child(current_line)
+					current_line.width = 8
+					current_line.add_point(mouse_over_vertex.global_position)
+					# This second point will be changed every physics tic.
+					current_line.add_point(get_global_mouse_position())
+				
+				else:
+					current_line.set_point_position(1, mouse_over_vertex.position)
+					current_line = null
 
 
 func _on_mouse_follower_area_entered(area: Area2D):
 	if area.get_parent() in $Instances/Vertices.get_children(false):
-		is_mouse_over_vertex = true;
-	
+		mouse_over_vertex = area.get_parent();
 
 
 func _on_mouse_follower_area_exited(area):
 	if area.get_parent() in $Instances/Vertices.get_children(false):
-		is_mouse_over_vertex = false;
+		mouse_over_vertex = null;

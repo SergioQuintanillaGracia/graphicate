@@ -79,13 +79,13 @@ color = Color(0.188235, 0.188235, 0.188235, 1)
 
 [node name="Instances" type="Node2D" parent="."]
 
-[node name="Vertices" type="Node2D" parent="Instances"]
-
 [node name="Edges" type="Node2D" parent="Instances"]
 
-[node name="VertexNames" type="Node2D" parent="Instances"]
+[node name="Vertices" type="Node2D" parent="Instances"]
 
 [node name="EdgeNames" type="Node2D" parent="Instances"]
+
+[node name="VertexNames" type="Node2D" parent="Instances"]
 
 [node name="MouseFollower" type="Area2D" parent="."]
 
