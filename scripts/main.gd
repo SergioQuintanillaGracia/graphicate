@@ -36,12 +36,13 @@ func _ready():
 
 
 func _process(_delta):
-	# print(get_graph_string())
-	
 	if Input.is_action_just_pressed("ui_cancel"):
 		if current_line != null:
 			# We need to delete the line data from the graph.
 			cancel_line()
+	
+	if Input.is_action_just_pressed("print_graph_to_console"):
+		print(get_graph_string())
 
 
 func cancel_line():
@@ -177,8 +178,6 @@ func _on_settings_button_gui_input(event):
 func _on_panel_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			print("Mouse click pressed on drawing space")
-			
 			if current_mode == MODE_DRAW_VERTICES && mouse_over_vertex == null:
 				# We need to draw a vertex.
 				draw_vertex(get_global_mouse_position(), "")
@@ -189,7 +188,7 @@ func _on_panel_gui_input(event):
 					# The line should start at this vertex.
 					current_line = Line2D.new()
 					$Instances/Edges.add_child(current_line)
-					current_line.width = 8
+					current_line.width = 4
 					
 					current_line.add_point(mouse_over_vertex.global_position)
 					# This second point will be changed every physics tic.
@@ -221,6 +220,30 @@ func _on_panel_gui_input(event):
 					current_line = null
 					current_line_vertex = null
 					current_line_vertex_end = null
+			
+			if current_mode == MODE_DELETE && mouse_over_vertex != null:
+				# We will store the lines to clear in an array.
+				var lines_to_clear: Array
+				
+				# We get the edges / lines we need to clear.
+				for line_list in graph[mouse_over_vertex]:
+					lines_to_clear.append(line_list[0])
+					line_list[0].queue_free()
+				
+				mouse_over_vertex.queue_free()
+				
+				graph.erase(mouse_over_vertex)
+				
+				# Erase the lines we need to clear from every vertex they were connected to
+				for vertex in graph:
+					for line_list in graph[vertex]:
+						if line_list[0] in lines_to_clear:
+							var line_state = line_list[1]
+							line_list[0].queue_free()
+							
+							graph[vertex].erase([line_list[0], line_state])
+							
+							update_degree(vertex)
 
 
 func update_degree(vertex: Node2D):

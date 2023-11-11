@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=18 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
@@ -17,7 +17,7 @@ size = Vector2(1, 1)
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l51oh"]
-font_size = 27
+font_size = 14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf8iy"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(120, 0)]
+"values": [Vector2(60, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_l2juu"]
@@ -50,7 +50,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(120, 0), Vector2(360, 0)]
+"values": [Vector2(60, 0), Vector2(180, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_metwd"]
@@ -58,6 +58,9 @@ _data = {
 "RESET": SubResource("Animation_4i8tt"),
 "SidebarAnimation": SubResource("Animation_l2juu")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tadx"]
+size = Vector2(312, 10)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -75,7 +78,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.188235, 0.188235, 0.188235, 1)
+color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [node name="Instances" type="Node2D" parent="."]
 
@@ -103,7 +106,7 @@ grow_vertical = 2
 
 [node name="Sidebar" type="Panel" parent="HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6f24n")
 
@@ -124,7 +127,7 @@ theme_override_constants/separation = 0
 
 [node name="ToggleButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 script = ExtResource("1_ea3wp")
 
@@ -139,8 +142,8 @@ mouse_filter = 2
 color = Color(0.239216, 0.239216, 0.258824, 1)
 
 [node name="Menu" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton"]
-position = Vector2(60, 49)
-scale = Vector2(0.6, 0.6)
+position = Vector2(30, 24)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_vr1x3")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton"]
@@ -148,9 +151,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Toggle menu"
@@ -158,7 +161,7 @@ label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
 [node name="DrawVertexButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 0
 
@@ -173,8 +176,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.18, 0.18)
+position = Vector2(30, 24)
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("2_iww1y")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
@@ -182,9 +185,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Draw vertices"
@@ -192,7 +195,7 @@ label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
 [node name="DrawEdgeButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 1
 
@@ -207,8 +210,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.4, 0.4)
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_ri6rr")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
@@ -216,9 +219,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Draw edges"
@@ -226,7 +229,7 @@ label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
 [node name="EditButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 2
 
@@ -241,8 +244,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.4, 0.4)
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_lvvfh")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
@@ -250,9 +253,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Edit weights"
@@ -260,7 +263,7 @@ label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
 [node name="DeleteButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 3
 
@@ -275,8 +278,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.4, 0.4)
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_g2uue")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
@@ -284,9 +287,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Delete items"
@@ -300,7 +303,7 @@ size_flags_vertical = 8
 theme_override_constants/separation = 0
 
 [node name="ImageButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/ImageButton"]
@@ -314,8 +317,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/ImageButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.4, 0.4)
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("8_sgf1m")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/ImageButton"]
@@ -323,9 +326,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Add image"
@@ -333,7 +336,7 @@ label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
 [node name="SettingsButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer"]
-custom_minimum_size = Vector2(120, 96)
+custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/SettingsButton"]
@@ -347,8 +350,8 @@ mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/SettingsButton"]
-position = Vector2(60, 47)
-scale = Vector2(0.4, 0.4)
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("9_ycota")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/SettingsButton"]
@@ -356,9 +359,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 120.0
+offset_left = 60.0
 offset_top = -20.0
-offset_right = 307.0
+offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Settings"
@@ -374,6 +377,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rf8iy")
 libraries = {
 "": SubResource("AnimationLibrary_metwd")
 }
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(501, 376, 775, 227)
+
+[node name="Area2D" type="Area2D" parent="Line2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/Area2D"]
+position = Vector2(637, 302)
+rotation = -0.499164
+shape = SubResource("RectangleShape2D_1tadx")
 
 [connection signal="area_entered" from="MouseFollower" to="." method="_on_mouse_follower_area_entered"]
 [connection signal="area_exited" from="MouseFollower" to="." method="_on_mouse_follower_area_exited"]
