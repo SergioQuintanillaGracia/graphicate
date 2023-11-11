@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn8bejc7m142v"]
+
+[ext_resource type="Texture2D" uid="uid://cjbvsrrw0ddg2" path="res://icons/vertex.png" id="1_lxebx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iw3if"]
+radius = 20.0998
+
+[node name="vertex" type="Node2D"]
+
+[node name="Vertex" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_lxebx")
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_iw3if")

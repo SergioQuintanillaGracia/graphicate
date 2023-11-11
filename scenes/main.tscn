@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=17 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
@@ -10,11 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://whpx4ttmig4f" path="res://icons/image_icon.png" id="8_sgf1m"]
 [ext_resource type="Texture2D" uid="uid://b6k78fre3jnoh" path="res://icons/settings_icon.png" id="9_ycota"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqywd"]
+size = Vector2(1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f24n"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l51oh"]
 font_size = 27
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf8iy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="Animation" id="Animation_4i8tt"]
 length = 0.001
@@ -69,7 +75,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.239216, 0.239216, 0.239216, 1)
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="Instances" type="Node2D" parent="."]
+
+[node name="Vertices" type="Node2D" parent="Instances"]
+
+[node name="Edges" type="Node2D" parent="Instances"]
+
+[node name="VertexNames" type="Node2D" parent="Instances"]
+
+[node name="EdgeNames" type="Node2D" parent="Instances"]
+
+[node name="MouseFollower" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="MouseFollower"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_mqywd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -138,6 +160,7 @@ vertical_alignment = 1
 [node name="DrawVertexButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(120, 96)
 layout_mode = 2
+metadata/ButtonIdentifier = 0
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
 layout_mode = 1
@@ -171,6 +194,7 @@ vertical_alignment = 1
 [node name="DrawEdgeButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(120, 96)
 layout_mode = 2
+metadata/ButtonIdentifier = 1
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton"]
 layout_mode = 1
@@ -204,6 +228,7 @@ vertical_alignment = 1
 [node name="EditButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(120, 96)
 layout_mode = 2
+metadata/ButtonIdentifier = 2
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
 layout_mode = 1
@@ -237,6 +262,7 @@ vertical_alignment = 1
 [node name="DeleteButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(120, 96)
 layout_mode = 2
+metadata/ButtonIdentifier = 3
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
 layout_mode = 1
@@ -342,20 +368,15 @@ vertical_alignment = 1
 [node name="Panel" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_rf8iy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_metwd")
 }
 
-[node name="Vertices" type="Node2D" parent="."]
-
-[node name="Edges" type="Node2D" parent="."]
-
-[node name="VertexNames" type="Node2D" parent="."]
-
-[node name="EdgeNames" type="Node2D" parent="."]
-
+[connection signal="area_entered" from="MouseFollower" to="." method="_on_mouse_follower_area_entered"]
+[connection signal="area_exited" from="MouseFollower" to="." method="_on_mouse_follower_area_exited"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton" to="." method="_on_draw_vertex_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton" to="." method="_on_draw_edge_button_gui_input"]
