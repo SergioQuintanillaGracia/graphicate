@@ -28,8 +28,7 @@ var current_line_vertex: Node2D
 var current_line_vertex_end: Node2D
 
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
-
-@export var edge_width: int = 4
+var edge_scene: PackedScene = load("res://scenes/edge.tscn")
 
 
 func _ready():
@@ -49,8 +48,8 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
-	$MouseFollower.position = get_global_mouse_position()
-	
+	$MouseCollisionArea.position = get_global_mouse_position()
+
 	if current_line != null:
 		current_line.set_point_position(1, get_global_mouse_position())
 
@@ -62,6 +61,10 @@ func cancel_line():
 	
 	if current_line_vertex_end != null:
 		update_degree(current_line_vertex_end)
+	
+	current_line = null
+	current_line_vertex = null
+	current_line_vertex_end = null
 
 
 func get_graph_string():
@@ -181,6 +184,8 @@ func _on_settings_button_gui_input(event):
 func _on_panel_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
+			update_mouse_overlapping_areas()
+			
 			if current_mode == MODE_DRAW_VERTICES && mouse_over_vertex == null:
 				# We need to draw a vertex.
 				draw_vertex(get_global_mouse_position(), "")
@@ -189,9 +194,8 @@ func _on_panel_gui_input(event):
 				# We need to draw a line.
 				if current_line == null:
 					# The line should start at this vertex.
-					current_line = Line2D.new()
+					current_line = edge_scene.instantiate()
 					$Instances/Edges.add_child(current_line)
-					current_line.width = edge_width
 					
 					current_line.add_point(mouse_over_vertex.global_position)
 					# This second point will be changed every physics tic.
@@ -214,32 +218,26 @@ func _on_panel_gui_input(event):
 					if are_adjacent(current_line_vertex, current_line_vertex_end):
 						cancel_line()
 					
+					# If the destination node is the same as the origin node,
+					# cancel the line.
+					elif (current_line_vertex == current_line_vertex_end):
+						cancel_line()
+					
 					else:
 						# Add the line data to the graph.
 						graph[current_line_vertex_end].append([current_line, 1])
 						
 						update_degree(current_line_vertex_end)
 						
-						# Add an Area2D and CollisionShape2D to the line, so we
-						# can detect when the mouse is over it.
-						var area: Area2D = Area2D.new()
-						var collision_shape: CollisionShape2D = CollisionShape2D.new()
-						var shape: RectangleShape2D = RectangleShape2D.new()
-						area.add_child(collision_shape)
-						current_line.add_child(area)
+						# Create the CollisionShape for the line, so we can interact
+						# with it.
+						current_line.create_collisionshape()
 						
-						var p1: Vector2 = current_line.get_point_position(0)
-						var p2: Vector2 = current_line.get_point_position(1)
-						var dist: float = p1.distance_to(p2)
-						collision_shape.position = (p1 + p2) / 2
-						collision_shape.rotation = p1.direction_to(p2).angle()
-						shape.size = Vector2(dist, edge_width + 8)
-						collision_shape.shape = shape
+						current_line.set_weight(0)
 						
-						
-					current_line = null
-					current_line_vertex = null
-					current_line_vertex_end = null
+						current_line = null
+						current_line_vertex = null
+						current_line_vertex_end = null
 			
 			if current_mode == MODE_DELETE:
 				if mouse_over_vertex != null:
@@ -255,7 +253,7 @@ func _on_panel_gui_input(event):
 					
 					graph.erase(mouse_over_vertex)
 					
-					# Erase the lines we need to clear from every vertex they were connected to
+					# Erase the lines we need to clear from every vertex theym were connected to
 					for vertex in graph:
 						for edge_list in graph[vertex]:
 							if edge_list[0] in edges_to_clear:
@@ -283,14 +281,15 @@ func update_degree(vertex: Node2D):
 	vertex.set_degree(graph[vertex].size())
 
 
-func _on_mouse_follower_area_entered(area: Area2D):
-	if area.get_parent() in $Instances/Vertices.get_children(false):
-		mouse_over_vertex = area.get_parent();
-	if area.get_parent() in $Instances/Edges.get_children(false):
-		mouse_over_edge = area.get_parent();
+func update_mouse_overlapping_areas():
+	for area in $MouseCollisionArea.get_overlapping_areas():
+		if area.get_parent() in $Instances/Vertices.get_children(false):
+			mouse_over_vertex = area.get_parent();
+		if area.get_parent() in $Instances/Edges.get_children(false):
+			mouse_over_edge = area.get_parent();
 
 
-func _on_mouse_follower_area_exited(area):
+func _on_mouse_collision_area_area_exited(area):
 	if area.get_parent() in $Instances/Vertices.get_children(false):
 		mouse_over_vertex = null;
 	if area.get_parent() in $Instances/Edges.get_children(false):

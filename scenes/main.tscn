@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://whpx4ttmig4f" path="res://icons/image_icon.png" id="8_sgf1m"]
 [ext_resource type="Texture2D" uid="uid://b6k78fre3jnoh" path="res://icons/settings_icon.png" id="9_ycota"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqywd"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00rrm"]
 size = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f24n"]
@@ -77,6 +77,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.219608, 0.219608, 0.219608, 1)
 
+[node name="MouseCollisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseCollisionArea"]
+shape = SubResource("RectangleShape2D_00rrm")
+
 [node name="Instances" type="Node2D" parent="."]
 
 [node name="Edges" type="Node2D" parent="Instances"]
@@ -86,12 +91,6 @@ color = Color(0.219608, 0.219608, 0.219608, 1)
 [node name="EdgeNames" type="Node2D" parent="Instances"]
 
 [node name="VertexNames" type="Node2D" parent="Instances"]
-
-[node name="MouseFollower" type="Area2D" parent="."]
-
-[node name="CollisionShape" type="CollisionShape2D" parent="MouseFollower"]
-position = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_mqywd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -375,8 +374,7 @@ libraries = {
 "": SubResource("AnimationLibrary_metwd")
 }
 
-[connection signal="area_entered" from="MouseFollower" to="." method="_on_mouse_follower_area_entered"]
-[connection signal="area_exited" from="MouseFollower" to="." method="_on_mouse_follower_area_exited"]
+[connection signal="area_exited" from="MouseCollisionArea" to="." method="_on_mouse_collision_area_area_exited"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton" to="." method="_on_draw_vertex_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton" to="." method="_on_draw_edge_button_gui_input"]
