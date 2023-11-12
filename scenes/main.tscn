@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=17 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
@@ -58,9 +58,6 @@ _data = {
 "RESET": SubResource("Animation_4i8tt"),
 "SidebarAnimation": SubResource("Animation_l2juu")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tadx"]
-size = Vector2(312, 10)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -377,16 +374,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rf8iy")
 libraries = {
 "": SubResource("AnimationLibrary_metwd")
 }
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(501, 376, 775, 227)
-
-[node name="Area2D" type="Area2D" parent="Line2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/Area2D"]
-position = Vector2(637, 302)
-rotation = -0.499164
-shape = SubResource("RectangleShape2D_1tadx")
 
 [connection signal="area_entered" from="MouseFollower" to="." method="_on_mouse_follower_area_entered"]
 [connection signal="area_exited" from="MouseFollower" to="." method="_on_mouse_follower_area_exited"]

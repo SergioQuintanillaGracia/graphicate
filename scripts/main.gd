@@ -19,6 +19,7 @@ var current_mode: int
 var previous_mode: int
 
 var mouse_over_vertex: Node2D = null
+var mouse_over_edge: Line2D = null
 
 var current_line: Line2D
 # Needed to remove the line data from the graph
@@ -27,6 +28,8 @@ var current_line_vertex: Node2D
 var current_line_vertex_end: Node2D
 
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
+
+@export var edge_width: int = 4
 
 
 func _ready():
@@ -43,6 +46,13 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("print_graph_to_console"):
 		print(get_graph_string())
+
+
+func _physics_process(_delta):
+	$MouseFollower.position = get_global_mouse_position()
+	
+	if current_line != null:
+		current_line.set_point_position(1, get_global_mouse_position())
 
 
 func cancel_line():
@@ -102,13 +112,6 @@ func update_selected_button():
 			
 			elif node.get_meta("ButtonIdentifier") == previous_mode:
 				node.get_node("ColorRect").color = "2e2e2e"
-
-
-func _physics_process(_delta):
-	$MouseFollower.position = get_global_mouse_position()
-	
-	if current_line != null:
-		current_line.set_point_position(1, get_global_mouse_position())
 
 
 func draw_vertex(position: Vector2, name: String):
@@ -188,7 +191,7 @@ func _on_panel_gui_input(event):
 					# The line should start at this vertex.
 					current_line = Line2D.new()
 					$Instances/Edges.add_child(current_line)
-					current_line.width = 4
+					current_line.width = edge_width
 					
 					current_line.add_point(mouse_over_vertex.global_position)
 					# This second point will be changed every physics tic.
@@ -217,33 +220,63 @@ func _on_panel_gui_input(event):
 						
 						update_degree(current_line_vertex_end)
 						
+						# Add an Area2D and CollisionShape2D to the line, so we
+						# can detect when the mouse is over it.
+						var area: Area2D = Area2D.new()
+						var collision_shape: CollisionShape2D = CollisionShape2D.new()
+						var shape: RectangleShape2D = RectangleShape2D.new()
+						area.add_child(collision_shape)
+						current_line.add_child(area)
+						
+						var p1: Vector2 = current_line.get_point_position(0)
+						var p2: Vector2 = current_line.get_point_position(1)
+						var dist: float = p1.distance_to(p2)
+						collision_shape.position = (p1 + p2) / 2
+						collision_shape.rotation = p1.direction_to(p2).angle()
+						shape.size = Vector2(dist, edge_width + 8)
+						collision_shape.shape = shape
+						
+						
 					current_line = null
 					current_line_vertex = null
 					current_line_vertex_end = null
 			
-			if current_mode == MODE_DELETE && mouse_over_vertex != null:
-				# We will store the lines to clear in an array.
-				var lines_to_clear: Array
+			if current_mode == MODE_DELETE:
+				if mouse_over_vertex != null:
+					# We will store the edges to clear in an array.
+					var edges_to_clear: Array
+					
+					# We get the edges we need to clear.
+					for edge_list in graph[mouse_over_vertex]:
+						edges_to_clear.append(edge_list[0])
+						edge_list[0].queue_free()
+					
+					mouse_over_vertex.queue_free()
+					
+					graph.erase(mouse_over_vertex)
+					
+					# Erase the lines we need to clear from every vertex they were connected to
+					for vertex in graph:
+						for edge_list in graph[vertex]:
+							if edge_list[0] in edges_to_clear:
+								var edge_state = edge_list[1]
+								edge_list[0].queue_free()
+								
+								graph[vertex].erase([edge_list[0], edge_state])
+								
+								update_degree(vertex)
 				
-				# We get the edges / lines we need to clear.
-				for line_list in graph[mouse_over_vertex]:
-					lines_to_clear.append(line_list[0])
-					line_list[0].queue_free()
-				
-				mouse_over_vertex.queue_free()
-				
-				graph.erase(mouse_over_vertex)
-				
-				# Erase the lines we need to clear from every vertex they were connected to
-				for vertex in graph:
-					for line_list in graph[vertex]:
-						if line_list[0] in lines_to_clear:
-							var line_state = line_list[1]
-							line_list[0].queue_free()
-							
-							graph[vertex].erase([line_list[0], line_state])
-							
-							update_degree(vertex)
+				elif mouse_over_edge != null:
+					# Erase the line data from every vertex it is in.
+					for vertex in graph:
+						for edge_list in graph[vertex]:
+							if edge_list[0] == mouse_over_edge:
+								var edge_state = edge_list[1]
+								graph[vertex].erase([edge_list[0], edge_state])
+								
+								update_degree(vertex)
+					
+					mouse_over_edge.queue_free()
 
 
 func update_degree(vertex: Node2D):
@@ -253,8 +286,12 @@ func update_degree(vertex: Node2D):
 func _on_mouse_follower_area_entered(area: Area2D):
 	if area.get_parent() in $Instances/Vertices.get_children(false):
 		mouse_over_vertex = area.get_parent();
+	if area.get_parent() in $Instances/Edges.get_children(false):
+		mouse_over_edge = area.get_parent();
 
 
 func _on_mouse_follower_area_exited(area):
 	if area.get_parent() in $Instances/Vertices.get_children(false):
 		mouse_over_vertex = null;
+	if area.get_parent() in $Instances/Edges.get_children(false):
+		mouse_over_edge = null;
