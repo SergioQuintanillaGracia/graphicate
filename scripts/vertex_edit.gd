@@ -12,18 +12,14 @@ func _input(event):
 		_on_apply_button_pressed()
 
 
-func get_text() -> String:
-	return $Panel/LineEdit.text
-
-
-func set_vertex(vert: Node2D):
-	vertex = vert
+func set_vertex(vertex_input: Node2D):
+	vertex = vertex_input
 	$Panel/Title.text = $Panel/Title.text + " (" + vertex.name + ")"
 
 
 func _on_apply_button_pressed():
 	var text: String = $Panel/LineEdit.text
-	var new_name: String = text.split("\n")[0].replace(" ", "")
+	var new_name: String = text.replace(" ", "")
 	
 	if new_name != "":
 		vertex.name = new_name

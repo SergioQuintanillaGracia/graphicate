@@ -8,8 +8,12 @@ func _ready():
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			if $"../../..".custom_minimum_size[0] <= 120:
-				anim_player.play("SidebarAnimation")
-				
-			else:
-				anim_player.play_backwards("SidebarAnimation")
+			play_animation()
+
+
+func play_animation():
+	if $"../../..".custom_minimum_size[0] <= 120:
+		anim_player.play("SidebarAnimation")
+		
+	else:
+		anim_player.play_backwards("SidebarAnimation")

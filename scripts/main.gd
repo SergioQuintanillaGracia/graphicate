@@ -30,6 +30,7 @@ var current_line_vertex_end: Node2D
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
 var edge_scene: PackedScene = load("res://scenes/edge.tscn")
 var vertex_edit: PackedScene = load("res://scenes/vertex_edit.tscn")
+var edge_edit: PackedScene = load("res://scenes/edge_edit.tscn")
 
 
 func _ready():
@@ -38,7 +39,14 @@ func _ready():
 	update_selected_button()
 
 
-func _process(_delta):
+func _physics_process(_delta):
+	$MouseCollisionArea.position = get_global_mouse_position()
+
+	if current_line != null:
+		current_line.set_point_position(1, get_global_mouse_position())
+
+
+func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if current_line != null:
 			# We need to delete the line data from the graph.
@@ -46,13 +54,21 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("print_graph_to_console"):
 		print(get_graph_string())
-
-
-func _physics_process(_delta):
-	$MouseCollisionArea.position = get_global_mouse_position()
-
-	if current_line != null:
-		current_line.set_point_position(1, get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("draw_vertex_mode"):
+		set_current_mode(MODE_DRAW_VERTICES)
+	
+	if Input.is_action_just_pressed("draw_edge_mode"):
+		set_current_mode(MODE_DRAW_EDGES)
+	
+	if Input.is_action_just_pressed("edit_mode"):
+		set_current_mode(MODE_EDIT)
+	
+	if Input.is_action_just_pressed("delete_mode"):
+		set_current_mode(MODE_DELETE)
+	
+	if Input.is_action_just_pressed("toggle_menu"):
+		$HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton.play_animation()
 
 
 func cancel_line():
@@ -118,6 +134,12 @@ func update_selected_button():
 				node.get_node("ColorRect").color = "2e2e2e"
 
 
+func set_current_mode(new_mode: int):
+	previous_mode = current_mode
+	current_mode = new_mode
+	update_selected_button()
+
+
 func draw_vertex(position: Vector2, name: String):
 	if name == "":
 		name = "v" + str(vertex_name_count)
@@ -134,41 +156,25 @@ func draw_vertex(position: Vector2, name: String):
 func _on_draw_vertex_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			previous_mode = current_mode
-			current_mode = MODE_DRAW_VERTICES
-			print("Changed mode to " + str(current_mode))
-			
-			update_selected_button()
+			set_current_mode(MODE_DRAW_VERTICES)
 
 
 func _on_draw_edge_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			previous_mode = current_mode
-			current_mode = MODE_DRAW_EDGES
-			print("Changed mode to " + str(current_mode))
-			
-			update_selected_button()
+			set_current_mode(MODE_DRAW_EDGES)
 
 
 func _on_edit_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			previous_mode = current_mode
-			current_mode = MODE_EDIT
-			print("Changed mode to " + str(current_mode))
-			
-			update_selected_button()
+			set_current_mode(MODE_EDIT)
 
 
 func _on_delete_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			previous_mode = current_mode
-			current_mode = MODE_DELETE
-			print("Changed mode to " + str(current_mode))
-			
-			update_selected_button()
+			set_current_mode(MODE_DELETE)
 
 
 func _on_image_button_gui_input(event):
@@ -287,6 +293,16 @@ func _on_panel_gui_input(event):
 					vertex_edit_popup.position.y -= vertex_edit_popup.size.y / 2
 					
 					vertex_edit_popup.set_vertex(mouse_over_vertex)
+				
+				elif mouse_over_edge != null:
+					# Instantiate the edge edit popup
+					var edge_edit_popup = edge_edit.instantiate()
+					add_child(edge_edit_popup)
+					edge_edit_popup.position = get_viewport_rect().size / 2
+					edge_edit_popup.position.x -= edge_edit_popup.size.x / 2
+					edge_edit_popup.position.y -= edge_edit_popup.size.y / 2
+					
+					edge_edit_popup.set_edge(mouse_over_edge)
 
 
 func update_degree(vertex: Node2D):
