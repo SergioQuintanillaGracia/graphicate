@@ -286,7 +286,7 @@ func _on_panel_gui_input(event):
 					vertex_edit_popup.position.x -= vertex_edit_popup.size.x / 2
 					vertex_edit_popup.position.y -= vertex_edit_popup.size.y / 2
 					
-					
+					vertex_edit_popup.set_vertex(mouse_over_vertex)
 
 
 func update_degree(vertex: Node2D):

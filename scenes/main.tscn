@@ -254,7 +254,7 @@ offset_top = -20.0
 offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
-text = "Edit weights"
+text = "Edit"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 

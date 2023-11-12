@@ -1,22 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://fo7hjtci5yvg"]
+[gd_scene load_steps=3 format=3 uid="uid://fo7hjtci5yvg"]
 
 [ext_resource type="Script" path="res://scripts/vertex_edit.gd" id="1_j3x8q"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_368ll"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="vertex_edit" type="Popup"]
-size = Vector2i(143, 40)
+mesh_lod_threshold = 4.0
+size = Vector2i(300, 150)
 visible = true
 script = ExtResource("1_j3x8q")
 
-[node name="TextEdit" type="TextEdit" parent="."]
-custom_minimum_size = Vector2(143, 40)
+[node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/background_color = Color(0.14902, 0.14902, 0.14902, 1)
-placeholder_text = "New node name"
-caret_blink = true
 
-[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]
-[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]
+[node name="Title" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 26.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_368ll")
+text = "Edit vertex"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 46.0
+offset_right = 250.0
+offset_bottom = 81.0
+placeholder_text = "New vertex name"
+alignment = 1
+max_length = 15
+
+[node name="ApplyButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 0
+offset_left = 172.0
+offset_top = 102.0
+offset_right = 252.0
+offset_bottom = 133.0
+text = "Apply"
+
+[node name="CancelButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 0
+offset_left = 48.0
+offset_top = 102.0
+offset_right = 128.0
+offset_bottom = 133.0
+text = "Cancel"
+
+[connection signal="pressed" from="Panel/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="pressed" from="Panel/CancelButton" to="." method="_on_cancel_button_pressed"]
