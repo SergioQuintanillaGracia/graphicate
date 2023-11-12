@@ -12,8 +12,8 @@ var vertex_name_count: int = 0
 
 const MODE_DRAW_VERTICES: int = 0
 const MODE_DRAW_EDGES: int = 1
-const MODE_EDIT: int = 2
-const MODE_DELETE: int = 3
+const MODE_DELETE: int = 2
+const MODE_EDIT: int = 3
 
 var current_mode: int
 var previous_mode: int
@@ -61,11 +61,11 @@ func _input(event):
 	if Input.is_action_just_pressed("draw_edge_mode"):
 		set_current_mode(MODE_DRAW_EDGES)
 	
-	if Input.is_action_just_pressed("edit_mode"):
-		set_current_mode(MODE_EDIT)
-	
 	if Input.is_action_just_pressed("delete_mode"):
 		set_current_mode(MODE_DELETE)
+	
+	if Input.is_action_just_pressed("edit_mode"):
+		set_current_mode(MODE_EDIT)
 	
 	if Input.is_action_just_pressed("toggle_menu"):
 		$HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton.play_animation()
@@ -137,7 +137,13 @@ func update_selected_button():
 func set_current_mode(new_mode: int):
 	previous_mode = current_mode
 	current_mode = new_mode
-	update_selected_button()
+	
+	if previous_mode != new_mode:
+		update_selected_button()
+		
+		if previous_mode == MODE_DRAW_EDGES:
+			if current_line != null:
+				cancel_line()
 
 
 func draw_vertex(position: Vector2, name: String):
@@ -165,16 +171,16 @@ func _on_draw_edge_button_gui_input(event):
 			set_current_mode(MODE_DRAW_EDGES)
 
 
-func _on_edit_button_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.get_button_index() == 1 && event.is_pressed():
-			set_current_mode(MODE_EDIT)
-
-
 func _on_delete_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
 			set_current_mode(MODE_DELETE)
+
+
+func _on_edit_button_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			set_current_mode(MODE_EDIT)
 
 
 func _on_image_button_gui_input(event):
@@ -260,7 +266,7 @@ func _on_panel_gui_input(event):
 					
 					graph.erase(mouse_over_vertex)
 					
-					# Erase the lines we need to clear from every vertex theym were connected to
+					# Erase the lines we need to clear from every vertex they were connected to
 					for vertex in graph:
 						for edge_list in graph[vertex]:
 							if edge_list[0] in edges_to_clear:

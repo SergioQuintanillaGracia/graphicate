@@ -173,7 +173,7 @@ color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
 position = Vector2(30, 24)
-scale = Vector2(0.09, 0.09)
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("2_iww1y")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton"]
@@ -224,10 +224,44 @@ text = "Draw edges"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
-[node name="EditButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
+[node name="DeleteButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(60, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+position = Vector2(30, 24)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_g2uue")
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -20.0
+offset_right = 247.0
+offset_bottom = 20.0
+grow_vertical = 2
+text = "Delete"
+label_settings = SubResource("LabelSettings_l51oh")
+vertical_alignment = 1
+
+[node name="EditButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
+custom_minimum_size = Vector2(60, 48)
+layout_mode = 2
+metadata/ButtonIdentifier = 3
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton"]
 layout_mode = 1
@@ -255,40 +289,6 @@ offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
 text = "Edit"
-label_settings = SubResource("LabelSettings_l51oh")
-vertical_alignment = 1
-
-[node name="DeleteButton" type="Control" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer"]
-custom_minimum_size = Vector2(60, 48)
-layout_mode = 2
-metadata/ButtonIdentifier = 3
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.180392, 0.180392, 0.180392, 1)
-
-[node name="Icon" type="Sprite2D" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
-position = Vector2(30, 24)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("6_g2uue")
-
-[node name="Label" type="Label" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 60.0
-offset_top = -20.0
-offset_right = 247.0
-offset_bottom = 20.0
-grow_vertical = 2
-text = "Delete items"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
@@ -378,8 +378,8 @@ libraries = {
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawVertexButton" to="." method="_on_draw_vertex_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DrawEdgeButton" to="." method="_on_draw_edge_button_gui_input"]
-[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton" to="." method="_on_edit_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/DeleteButton" to="." method="_on_delete_button_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/EditButton" to="." method="_on_edit_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/ImageButton" to="." method="_on_image_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/SettingsButton" to="." method="_on_settings_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Panel" to="." method="_on_panel_gui_input"]
