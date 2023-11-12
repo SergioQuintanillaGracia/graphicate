@@ -29,6 +29,7 @@ var current_line_vertex_end: Node2D
 
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
 var edge_scene: PackedScene = load("res://scenes/edge.tscn")
+var vertex_edit: PackedScene = load("res://scenes/vertex_edit.tscn")
 
 
 func _ready():
@@ -275,6 +276,17 @@ func _on_panel_gui_input(event):
 								update_degree(vertex)
 					
 					mouse_over_edge.queue_free()
+			
+			if current_mode == MODE_EDIT:
+				if mouse_over_vertex != null:
+					# Instantiate the vertex edit popup
+					var vertex_edit_popup = vertex_edit.instantiate()
+					add_child(vertex_edit_popup)
+					vertex_edit_popup.position = get_viewport_rect().size / 2
+					vertex_edit_popup.position.x -= vertex_edit_popup.size.x / 2
+					vertex_edit_popup.position.y -= vertex_edit_popup.size.y / 2
+					
+					
 
 
 func update_degree(vertex: Node2D):
