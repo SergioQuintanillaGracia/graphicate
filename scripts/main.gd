@@ -57,7 +57,7 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("draw_vertex_mode"):
 		set_current_mode(MODE_DRAW_VERTICES)
-	
+
 	if Input.is_action_just_pressed("draw_edge_mode"):
 		set_current_mode(MODE_DRAW_EDGES)
 	

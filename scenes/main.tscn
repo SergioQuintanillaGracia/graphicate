@@ -28,7 +28,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("HBoxContainer/Sidebar:custom_minimum_size")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -44,7 +44,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("HBoxContainer/Sidebar:custom_minimum_size")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
@@ -327,7 +327,7 @@ offset_top = -20.0
 offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
-text = "Add image"
+text = "Add image (WIP)"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
@@ -360,7 +360,7 @@ offset_top = -20.0
 offset_right = 247.0
 offset_bottom = 20.0
 grow_vertical = 2
-text = "Settings"
+text = "Settings (WIP)"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
