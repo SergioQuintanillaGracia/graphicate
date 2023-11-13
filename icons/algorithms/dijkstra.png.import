@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb64in6b5xfim"
-path="res://.godot/imported/menu.png-44ee812e6006ace0b2703d300d0096d0.ctex"
+uid="uid://bx5xv5wbevkiy"
+path="res://.godot/imported/dijkstra.png-64439ce4a2d06749f458730df09d7767.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/menu.png"
-dest_files=["res://.godot/imported/menu.png-44ee812e6006ace0b2703d300d0096d0.ctex"]
+source_file="res://icons/algorithms/dijkstra.png"
+dest_files=["res://.godot/imported/dijkstra.png-64439ce4a2d06749f458730df09d7767.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvgn3kn7lb2m2"
-path="res://.godot/imported/edit_icon.png-ccfe06f88d31988387be18a54fb2a0a6.ctex"
+uid="uid://lktc6l41jksx"
+path="res://.godot/imported/edge_icon.png-4a00a02d54eb3475ff3bb316cd326ab4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/edit_icon.png"
-dest_files=["res://.godot/imported/edit_icon.png-ccfe06f88d31988387be18a54fb2a0a6.ctex"]
+source_file="res://icons/menus/edge_icon.png"
+dest_files=["res://.godot/imported/edge_icon.png-4a00a02d54eb3475ff3bb316cd326ab4.ctex"]
 
 [params]
 

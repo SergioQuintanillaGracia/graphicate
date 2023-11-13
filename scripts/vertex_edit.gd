@@ -10,11 +10,14 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("custom_ui_accept"):
 		_on_apply_button_pressed()
+	
+	if event.is_action_pressed("ui_cancel"):
+		hide()
 
 
 func set_vertex(vertex_input: Node2D):
 	vertex = vertex_input
-	$Panel/Title.text = $Panel/Title.text + " (" + vertex.name + ")"
+	title += " (" + vertex.name + ")"
 
 
 func _on_apply_button_pressed():

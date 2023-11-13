@@ -27,4 +27,7 @@ func update_label_position() -> void:
 
 func set_weight(new_weight: float) -> void:
 	weight = new_weight
-	$Label.text = str(weight)
+	if weight == 0:
+		$Label.text = ""
+	else:
+		$Label.text = str(weight)

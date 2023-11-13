@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjbvsrrw0ddg2"
-path="res://.godot/imported/vertex.png-c1c37bd749cec81220655330460e4a92.ctex"
+path="res://.godot/imported/vertex.png-5a212a9f70b8ebac76c18245a3834d4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/vertex.png"
-dest_files=["res://.godot/imported/vertex.png-c1c37bd749cec81220655330460e4a92.ctex"]
+source_file="res://icons/menus/vertex.png"
+dest_files=["res://.godot/imported/vertex.png-5a212a9f70b8ebac76c18245a3834d4a.ctex"]
 
 [params]
 

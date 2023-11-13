@@ -10,7 +10,9 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("custom_ui_accept"):
 		_on_apply_button_pressed()
-
+		
+	if event.is_action_pressed("ui_cancel"):
+		hide()
 
 func set_edge(edge_input: Node2D):
 	edge = edge_input
