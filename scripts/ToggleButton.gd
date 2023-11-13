@@ -12,7 +12,7 @@ func _on_gui_input(event):
 
 
 func play_animation():
-	if $"../../..".custom_minimum_size[0] <= 120:
+	if $"../../..".custom_minimum_size[0] <= 50:
 		anim_player.play("SidebarAnimation")
 		
 	else:

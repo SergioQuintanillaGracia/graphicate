@@ -7,10 +7,13 @@ bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="vertex_edit" type="Popup"]
+[node name="vertex_edit" type="Window"]
 mesh_lod_threshold = 4.0
+position = Vector2i(0, 36)
 size = Vector2i(300, 150)
-visible = true
+unresizable = true
+content_scale_mode = 1
+content_scale_aspect = 4
 script = ExtResource("1_j3x8q")
 
 [node name="Panel" type="Panel" parent="."]

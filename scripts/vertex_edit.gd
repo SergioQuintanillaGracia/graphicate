@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 var vertex: Node2D
 

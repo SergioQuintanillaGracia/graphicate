@@ -1,4 +1,4 @@
-extends Popup
+extends Window
 
 var edge: Node2D
 

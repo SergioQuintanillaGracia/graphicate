@@ -27,6 +27,10 @@ var current_line: Line2D
 var current_line_vertex: Node2D
 var current_line_vertex_end: Node2D
 
+# Used to block new popups when there's already one open.
+# Must be managed by the popups themselves.
+var is_any_popup_present: bool = false
+
 var vertex_scene: PackedScene = load("res://scenes/vertex.tscn")
 var edge_scene: PackedScene = load("res://scenes/edge.tscn")
 var vertex_edit: PackedScene = load("res://scenes/vertex_edit.tscn")
@@ -187,6 +191,7 @@ func _on_image_button_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
 			print("Image button pressed")
+
 
 func _on_settings_button_gui_input(event):
 	if event is InputEventMouseButton:
