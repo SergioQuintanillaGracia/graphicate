@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cva2udh88272"]
+
+[ext_resource type="Script" path="res://scripts/algorithms/algorithm_message.gd" id="1_5yb24"]
+[ext_resource type="Texture2D" uid="uid://rl3b5kitaavi" path="res://icons/algorithms/unknown_icon.png" id="2_q5kdi"]
+
+[node name="AlgorithmMessage" type="Control"]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5yb24")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 155.0
+offset_bottom = 45.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
+position = Vector2(20, 20)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("2_q5kdi")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 7.0
+offset_right = 153.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 15
+text = "Unknown"
+vertical_alignment = 1

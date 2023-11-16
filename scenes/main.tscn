@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=25 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
 [ext_resource type="Texture2D" uid="uid://cne6ybr2gtdny" path="res://icons/vertex_icon.png" id="2_iww1y"]
+[ext_resource type="Script" path="res://scripts/algorithms/message_manager.gd" id="2_kit3x"]
+[ext_resource type="Script" path="res://scripts/algorithms/properties.gd" id="2_tjpvv"]
 [ext_resource type="Texture2D" uid="uid://bb64in6b5xfim" path="res://icons/menus/menu.png" id="3_jyjdw"]
 [ext_resource type="Texture2D" uid="uid://lktc6l41jksx" path="res://icons/menus/edge_icon.png" id="5_ak26l"]
 [ext_resource type="Texture2D" uid="uid://co313xvcx5xby" path="res://icons/menus/delete_icon.png" id="6_clc4f"]
@@ -23,6 +25,17 @@ font_size = 14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf8iy"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quj5e"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o840"]
+
+[sub_resource type="Theme" id="Theme_a8r2l"]
+/styles/test = SubResource("StyleBoxFlat_3o840")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iq1ok"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 
 [sub_resource type="Animation" id="Animation_4i8tt"]
 length = 0.001
@@ -83,6 +96,16 @@ color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseCollisionArea"]
 shape = SubResource("RectangleShape2D_00rrm")
+
+[node name="Algorithms" type="Node2D" parent="."]
+
+[node name="MessageManager" type="Node2D" parent="Algorithms"]
+script = ExtResource("2_kit3x")
+
+[node name="Properties" type="Node2D" parent="Algorithms"]
+script = ExtResource("2_tjpvv")
+
+[node name="Dijkstra" type="Node2D" parent="Algorithms"]
 
 [node name="Instances" type="Node2D" parent="."]
 
@@ -373,31 +396,40 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rf8iy")
 
 [node name="Algorithms" type="Panel" parent="HBoxContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6f24n")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Algorithms"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 750.0
+
+[node name="Algor" type="Panel" parent="HBoxContainer/Algorithms/TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_quj5e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/TabContainer/Algor"]
 clip_contents = true
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 1.0
+offset_bottom = 105.0
+theme = SubResource("Theme_a8r2l")
 
-[node name="TopContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/VBoxContainer"]
+[node name="TopContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="AlgorithmTitle" type="Control" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer"]
+[node name="AlgorithmTitle" type="Control" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/AlgorithmTitle"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/AlgorithmTitle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,12 +439,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.239216, 0.239216, 0.258824, 1)
 
-[node name="Menu" type="Sprite2D" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/AlgorithmTitle"]
+[node name="Menu" type="Sprite2D" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/AlgorithmTitle"]
 position = Vector2(30, 24)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_jyjdw")
 
-[node name="Label" type="Label" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/AlgorithmTitle"]
+[node name="Label" type="Label" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/AlgorithmTitle"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -426,12 +458,12 @@ text = "Algorithms"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
-[node name="Properties" type="Control" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer"]
+[node name="Properties" type="Control" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 0
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Properties"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Properties"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -441,12 +473,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="Icon" type="Sprite2D" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Properties"]
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Properties"]
 position = Vector2(30, 24)
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("10_g2g0t")
 
-[node name="Label" type="Label" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Properties"]
+[node name="Label" type="Label" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Properties"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -460,12 +492,12 @@ text = "Properties"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
 
-[node name="Dijkstra" type="Control" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer"]
+[node name="Dijkstra" type="Control" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 metadata/ButtonIdentifier = 1
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Dijkstra"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Dijkstra"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -475,12 +507,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="Icon" type="Sprite2D" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Dijkstra"]
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Dijkstra"]
 position = Vector2(30, 24)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("11_1p8qp")
 
-[node name="Label" type="Label" parent="HBoxContainer/Algorithms/VBoxContainer/TopContainer/Dijkstra"]
+[node name="Label" type="Label" parent="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Dijkstra"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -493,6 +525,18 @@ grow_vertical = 2
 text = "Dijkstra"
 label_settings = SubResource("LabelSettings_l51oh")
 vertical_alignment = 1
+
+[node name="Current" type="Panel" parent="HBoxContainer/Algorithms/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iq1ok")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/TabContainer/Current"]
+clip_contents = true
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -508,3 +552,5 @@ libraries = {
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/ImageButton" to="." method="_on_image_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/BottomContainer/SettingsButton" to="." method="_on_settings_button_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Panel" to="." method="_on_panel_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Properties" to="." method="_on_properties_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Algorithms/TabContainer/Algor/VBoxContainer/TopContainer/Dijkstra" to="." method="_on_dijkstra_gui_input"]

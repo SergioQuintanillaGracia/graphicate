@@ -316,6 +316,18 @@ func _on_panel_gui_input(event):
 					edge_edit_popup.set_edge(mouse_over_edge)
 
 
+func _on_properties_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			$Algorithms/Properties.start(graph)
+
+
+func _on_dijkstra_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == 1 && event.is_pressed():
+			$Algorithms/Properties.start(graph)
+
+
 func update_degree(vertex: Node2D):
 	vertex.set_degree(graph[vertex].size())
 
