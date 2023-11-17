@@ -36,6 +36,8 @@ var edge_scene: PackedScene = load("res://scenes/edge.tscn")
 var vertex_edit: PackedScene = load("res://scenes/vertex_edit.tscn")
 var edge_edit: PackedScene = load("res://scenes/edge_edit.tscn")
 
+@onready var message_manager: Node2D = $Algorithms/MessageManager
+
 
 func _ready():
 	current_mode = -1
@@ -319,13 +321,15 @@ func _on_panel_gui_input(event):
 func _on_properties_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
+			message_manager.clear_messages()
 			$Algorithms/Properties.start(graph)
 
 
 func _on_dijkstra_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == 1 && event.is_pressed():
-			$Algorithms/Properties.start(graph)
+			message_manager.clear_messages()
+			message_manager.list_messages()
 
 
 func update_degree(vertex: Node2D):

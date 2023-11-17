@@ -23,3 +23,12 @@ func add_message(icon_type: int, text: String):
 	tab.add_child(message_instance)
 	
 	latest_message_instance = message_instance
+	messages.append(message_instance)
+
+
+func clear_messages() -> void:
+	for message in messages:
+		message.queue_free()
+	
+	messages.clear()
+	latest_message_instance = null

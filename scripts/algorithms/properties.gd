@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var message_manager: Node2D = $"../MessageManager"
+# mess_man comes from message_manager
+@onready var mess_man: Node2D = $"../MessageManager"
 
 
 func start(graph: Dictionary):
@@ -10,8 +11,14 @@ func start(graph: Dictionary):
 
 func show_properties(graph: Dictionary):
 	var vertex_count: int = graph.size()
+	var edges: Array
 	
-	message_manager.add_message(message_manager.ICON_INFO, "Information")
-	message_manager.add_message(message_manager.ICON_TICK, "Success")
-	message_manager.add_message(message_manager.ICON_CROSS, "Error")
-	message_manager.add_message(message_manager.ICON_UNKNOWN, "Unknown")
+	for vertex in graph:
+		for edge_list in graph[vertex]:
+			var edge: Node2D = edge_list[0]
+			
+			if edge not in edges:
+				edges.append(edge)
+	
+	mess_man.add_message(mess_man.ICON_INFO, "Vertices: " + str(graph.size()))
+	mess_man.add_message(mess_man.ICON_INFO, "Edges: " + str(edges.size()))
