@@ -14,18 +14,33 @@ var ICON_INFO: int = 3
 func get_panel_size() -> Vector2:
 	return $Panel.size;
 
+
 func set_text(new_text: String) -> void:
 	$Panel/Label.text = new_text
+	
+	# Each text line increases the label size by 25, so we need
+	# to make the panel bigger.
+	# 6 is the separation between the label and the top / bottom edges
+	# of the panel.
+	var extra_size: Vector2 = Vector2(0, new_text.count("\n") * 25 - 6)
+	# If there is only one line, the extra size will be negative, so set
+	# it to 0.
+	extra_size = extra_size if extra_size > Vector2(0, 0) else Vector2(0, 0)
+	
+	$Panel.set_size($Panel.size + extra_size)
+	custom_minimum_size += extra_size
+	$Panel/Icon.position += extra_size / 2
+
 
 func set_icon(icon_type: int) -> void:
 	if icon_type == ICON_UNKNOWN:
-		$Panel/Sprite2D.texture = unknown_icon
+		$Panel/Icon.texture = unknown_icon
 	elif icon_type == ICON_TICK:
-		$Panel/Sprite2D.texture = tick_icon
+		$Panel/Icon.texture = tick_icon
 	elif icon_type == ICON_CROSS:
-		$Panel/Sprite2D.texture = cross_icon
+		$Panel/Icon.texture = cross_icon
 	elif icon_type == ICON_INFO:
-		$Panel/Sprite2D.texture = info_icon
+		$Panel/Icon.texture = info_icon
 	else:
 		print("Could not set icon of type " + str(icon_type)
 		+ ". The type should be 1, 2, or 3")
