@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://du1d3tijvr0d1"]
+[gd_scene load_steps=26 format=3 uid="uid://du1d3tijvr0d1"]
 
 [ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/algorithms/message_manager.gd" id="2_kit3x"]
 [ext_resource type="Script" path="res://scripts/algorithms/properties.gd" id="2_tjpvv"]
 [ext_resource type="Texture2D" uid="uid://bb64in6b5xfim" path="res://icons/menus/menu.png" id="3_jyjdw"]
+[ext_resource type="Script" path="res://scripts/algorithms/dijkstra.gd" id="4_8h5kx"]
 [ext_resource type="Texture2D" uid="uid://lktc6l41jksx" path="res://icons/menus/edge_icon.png" id="5_ak26l"]
 [ext_resource type="Texture2D" uid="uid://co313xvcx5xby" path="res://icons/menus/delete_icon.png" id="6_clc4f"]
 [ext_resource type="Texture2D" uid="uid://bvgn3kn7lb2m2" path="res://icons/menus/edit_icon.png" id="7_8lgwr"]
@@ -106,6 +107,7 @@ script = ExtResource("2_kit3x")
 script = ExtResource("2_tjpvv")
 
 [node name="Dijkstra" type="Node2D" parent="Algorithms"]
+script = ExtResource("4_8h5kx")
 
 [node name="Instances" type="Node2D" parent="."]
 
