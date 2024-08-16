@@ -406,10 +406,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6f24n")
 layout_mode = 0
 offset_right = 160.0
 offset_bottom = 750.0
+current_tab = 0
 
 [node name="Algor" type="Panel" parent="HBoxContainer/Algorithms/TabContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_quj5e")
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/TabContainer/Algor"]
 clip_contents = true
@@ -532,6 +534,7 @@ vertical_alignment = 1
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_iq1ok")
+metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Algorithms/TabContainer/Current"]
 clip_contents = true
