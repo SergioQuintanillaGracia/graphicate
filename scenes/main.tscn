@@ -1,12 +1,12 @@
 [gd_scene load_steps=26 format=3 uid="uid://du1d3tijvr0d1"]
 
-[ext_resource type="Script" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_rgeyl"]
+[ext_resource type="Script" uid="uid://dgqybp1sgdgh5" path="res://scripts/ToggleButton.gd" id="1_ea3wp"]
+[ext_resource type="Script" uid="uid://dbgxgpsxlsnc7" path="res://scripts/main.gd" id="1_rgeyl"]
 [ext_resource type="Texture2D" uid="uid://cne6ybr2gtdny" path="res://icons/vertex_icon.png" id="2_iww1y"]
-[ext_resource type="Script" path="res://scripts/algorithms/message_manager.gd" id="2_kit3x"]
-[ext_resource type="Script" path="res://scripts/algorithms/properties.gd" id="2_tjpvv"]
+[ext_resource type="Script" uid="uid://e1476e2e8l36" path="res://scripts/algorithms/message_manager.gd" id="2_kit3x"]
+[ext_resource type="Script" uid="uid://bbcbf4fkx8kso" path="res://scripts/algorithms/properties.gd" id="2_tjpvv"]
 [ext_resource type="Texture2D" uid="uid://bb64in6b5xfim" path="res://icons/menus/menu.png" id="3_jyjdw"]
-[ext_resource type="Script" path="res://scripts/algorithms/dijkstra.gd" id="4_8h5kx"]
+[ext_resource type="Script" uid="uid://cv0m4gmb0ecg5" path="res://scripts/algorithms/dijkstra.gd" id="4_8h5kx"]
 [ext_resource type="Texture2D" uid="uid://lktc6l41jksx" path="res://icons/menus/edge_icon.png" id="5_ak26l"]
 [ext_resource type="Texture2D" uid="uid://co313xvcx5xby" path="res://icons/menus/delete_icon.png" id="6_clc4f"]
 [ext_resource type="Texture2D" uid="uid://bvgn3kn7lb2m2" path="res://icons/menus/edit_icon.png" id="7_8lgwr"]
@@ -71,8 +71,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_metwd"]
 _data = {
-"RESET": SubResource("Animation_4i8tt"),
-"SidebarAnimation": SubResource("Animation_l2juu")
+&"RESET": SubResource("Animation_4i8tt"),
+&"SidebarAnimation": SubResource("Animation_l2juu")
 }
 
 [node name="Main" type="Control"]
@@ -545,7 +545,7 @@ offset_bottom = -31.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_metwd")
+&"": SubResource("AnimationLibrary_metwd")
 }
 
 [connection signal="area_exited" from="MouseCollisionArea" to="." method="_on_mouse_collision_area_area_exited"]

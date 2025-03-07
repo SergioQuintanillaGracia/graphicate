@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cva2udh88272"]
 
-[ext_resource type="Script" path="res://scripts/algorithms/algorithm_message.gd" id="1_5yb24"]
+[ext_resource type="Script" uid="uid://bs85k3cologuo" path="res://scripts/algorithms/algorithm_message.gd" id="1_5yb24"]
 [ext_resource type="Texture2D" uid="uid://rl3b5kitaavi" path="res://icons/algorithms/unknown_icon.png" id="2_q5kdi"]
 
 [node name="AlgorithmMessage" type="Control"]

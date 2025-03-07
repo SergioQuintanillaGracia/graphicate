@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d4hx0jtm7y8w4"]
 
-[ext_resource type="Script" path="res://scripts/algorithms/dijkstra_vertex_select.gd" id="1_6wfnd"]
+[ext_resource type="Script" uid="uid://bwxfq3qlalipv" path="res://scripts/algorithms/dijkstra_vertex_select.gd" id="1_6wfnd"]
 
 [sub_resource type="Theme" id="Theme_1uaq4"]
 

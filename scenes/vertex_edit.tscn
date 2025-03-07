@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://fo7hjtci5yvg"]
 
-[ext_resource type="Script" path="res://scripts/vertex_edit.gd" id="1_j3x8q"]
+[ext_resource type="Script" uid="uid://c0pg56oxici33" path="res://scripts/vertex_edit.gd" id="1_j3x8q"]
 
 [node name="vertex_edit" type="Window"]
 mesh_lod_threshold = 4.0

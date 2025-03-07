@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7arblaqrbkpo"]
 
-[ext_resource type="Script" path="res://scripts/edge_edit.gd" id="1_yefm5"]
+[ext_resource type="Script" uid="uid://nq6y0e67xvic" path="res://scripts/edge_edit.gd" id="1_yefm5"]
 
 [sub_resource type="Theme" id="Theme_tt77j"]
 

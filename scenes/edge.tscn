@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bqx8ban1q3i6l"]
 
-[ext_resource type="Script" path="res://scripts/edge.gd" id="1_2145c"]
+[ext_resource type="Script" uid="uid://dfpeulii6lhw0" path="res://scripts/edge.gd" id="1_2145c"]
 
 [node name="edge" type="Line2D"]
 width = 4.0
